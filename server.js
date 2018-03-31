@@ -4,12 +4,12 @@ var bodyparser = require("body-parser");
 var session = require("express-session");
 var firebase = require("firebase");
 var zerorpc = require("zerorpc");
-var server = new zerorpc.Server({
-  hello: function(name, reply){
-    reply(null, "Hello"+name);
-  }
-});
-server.bind("tcp://*:4242");
+// var server = new zerorpc.Server({
+//   hello: function(name, reply){
+//     reply(null, "Hello"+name);
+//   }
+// });
+// server.bind("tcp://*:4242");
 
 var config = {
     apiKey: "AIzaSyC9VTc7oeiusK5f56jz-Cv4BlYtgwlZSWQ",
