@@ -10,7 +10,8 @@
     "express-session": "^1.15.6",
     "firebase": "^4.12.1",
     "zeromq": "^4.6.0",
-    "zerorpc": "^0.9.7"
+    "zerorpc": "^0.9.7",
+    "zmq": "^2.15.3"
   },
   "devDependencies": {},
   "scripts": {
