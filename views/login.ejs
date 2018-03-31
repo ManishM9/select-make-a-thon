@@ -1,0 +1,33 @@
+<html>
+    
+    <head>
+        <title>Login | Viserion</title>
+    </head>
+    
+    <body>
+        
+        <form action="/login" method="POST">
+            <label>Username:</label>
+            <input type="text" name="username" required/>
+            
+            </br>
+            
+            <label>Password:</label>
+            <input type="password" name="password" required/>
+            
+            </br>
+            <input type="submit" value="Login"/>
+            
+        </form>
+        
+        <p> If you haven't registered, <a href="/signup">Sign Up</a></p>
+        
+        <p><%= display %></p>
+        
+        
+        
+    </body>
+    
+    
+    
+</html>
