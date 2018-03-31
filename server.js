@@ -3,7 +3,7 @@ var app = express();
 var bodyparser = require("body-parser");
 var session = require("express-session");
 var firebase = require("firebase");
-var zerorpc = require("zerorpc");
+// var zerorpc = require("zerorpc");
 // var server = new zerorpc.Server({
 //   hello: function(name, reply){
 //     reply(null, "Hello"+name);
