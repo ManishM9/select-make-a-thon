@@ -137,6 +137,106 @@ app.get("/logout", function(req, res) {
 });
 
 
+app.get("/api/:level1", function(req, res) {
+    var level1 = req.params.level1;
+    
+    if(level1 === "login"){
+      var username_entered = req.query.username;
+      var password_entered = req.query.password;
+      if(username_entered === null || password_entered === null){
+        res.send("0");
+      } else {
+        db.ref("/members/"+username_entered).once("value", function(snapshot){
+          var val = snapshot.val();
+          if(val === null){
+            res.send("-1");
+          } else {
+            if(val.Password === password_entered){
+              req.session.username = username_entered;
+              req.session.authorised = true;
+              req.session.ID = val.ID;
+              // res.send("Logged In!!!!");
+              res.send("1");
+            } else {
+              res.send("-1");
+            }
+          }
+        });
+      }
+    // } else if(level1 === "send") {
+    //   // console.log(req.session.username);
+    //   // var sendto = req.query.sendto;
+    //   // var data = req.query.data;
+    //   // console.log(sendto+","+data);
+    //   // res.send("test");
+    // }
+      } else if(level1 == "receive"){
+        
+        var username = req.body.username;
+        
+        db.ref("/tosend/"+username).once("value", function(snapshot) {
+            var val = snapshot.val();
+            // console.log(val);
+            var str_tosend = "";
+            for(var item in val){
+              str_tosend += String(val[item])+"\n";
+              // console.log(item);
+            }
+            // console.log(str_tosend);
+            
+            if(str_tosend === ""){
+              res.send("-1");
+            } else {
+              res.send(str_tosend);
+              
+              db.ref("/tosend/"+username).set(null);
+              
+            }
+            
+        });
+        
+      }
+    
+});
+
+app.post("/api/:level1", function(req, res) {
+    var level1 = req.params.level1;
+    
+    if(level1 === "send"){
+      var data = req.body.data;
+      var sendto = req.body.sendTo;
+      console.log(data);
+      console.log(sendto);
+      
+      db.ref("/members/"+sendto).once("value", function(snapshot) {
+          var val = snapshot.val();
+          console.log(val);
+          if(val === null){
+            res.send("-1");
+          } else {
+            db.ref("/tosend/"+sendto).push(data).then(doc => {
+              res.send("1");
+            });
+          }
+      });
+    } else {
+      res.send("-1");
+    }
+});
+
+
+
+
+app.get("/count", function(req, res) {
+    console.log("COUNTER");
+    res.send("test");
+});
+
+
+
+
+
+
 
 app.listen(process.env.PORT, process.env.IP, function(req,res){
   console.log("Server Started,"+process.env.PORT+","+process.env.IP);
