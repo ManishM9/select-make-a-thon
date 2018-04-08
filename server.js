@@ -118,7 +118,7 @@ app.post("/login", function(req,res){
 
 app.get("/home", function(req, res) {
     if(req.session.authorised){
-      res.render("home", {username: req.session.username});
+      res.render("home", {username: req.session.username, uid:req.session.ID});
     } else {
       res.redirect("/login");
     }
@@ -163,13 +163,6 @@ app.get("/api/:level1", function(req, res) {
           }
         });
       }
-    // } else if(level1 === "send") {
-    //   // console.log(req.session.username);
-    //   // var sendto = req.query.sendto;
-    //   // var data = req.query.data;
-    //   // console.log(sendto+","+data);
-    //   // res.send("test");
-    // }
       } else if(level1 == "receive"){
         
         var username = req.body.username;
@@ -195,16 +188,10 @@ app.get("/api/:level1", function(req, res) {
             
         });
         
-      }
-    
-});
-
-app.post("/api/:level1", function(req, res) {
-    var level1 = req.params.level1;
-    
-    if(level1 === "send"){
-      var data = req.body.data;
-      var sendto = req.body.sendTo;
+      } else if(level1 === "send"){
+      var data = req.query.data;
+      var sendto = req.query.sendTo;
+      console.log(req.body);
       console.log(data);
       console.log(sendto);
       
@@ -222,7 +209,34 @@ app.post("/api/:level1", function(req, res) {
     } else {
       res.send("-1");
     }
+    
 });
+
+// app.post("/api/:level1", function(req, res) {
+//     var level1 = req.params.level1;
+    
+//     if(level1 === "send"){
+//       var data = req.body.data;
+//       var sendto = req.body.sendTo;
+//       console.log(req.body);
+//       console.log(data);
+//       console.log(sendto);
+      
+//       db.ref("/members/"+sendto).once("value", function(snapshot) {
+//           var val = snapshot.val();
+//           console.log(val);
+//           if(val === null){
+//             res.send("-1");
+//           } else {
+//             db.ref("/tosend/"+sendto).push(data).then(doc => {
+//               res.send("1");
+//             });
+//           }
+//       });
+//     } else {
+//       res.send("-1");
+//     }
+// });
 
 
 
