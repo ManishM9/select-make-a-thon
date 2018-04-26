@@ -247,7 +247,34 @@ app.get("/count", function(req, res) {
 });
 
 
+// app.get("/feedback", function(req, res) {
+//     res.render("feedback");
+// });
 
+// app.post("/feedback", function(req, res) {
+//     var reqb = req.body;
+    
+//     console.log("Accessed");
+    
+//     var name = reqb.name;
+//     var delivery = reqb.delivery;
+//     var conveneince = reqb.conveneince;
+//     var feelings = reqb.feelings;
+//     var something = reqb.something;
+//     var fap = reqb.fap;
+    
+//     console.log("Name:"+name);
+//     console.log("Delivery:"+delivery);
+//     console.log("Conveneince:"+conveneince);
+//     console.log("Feelings:"+feelings);
+//     console.log("Something:"+something);
+//     console.log("Fap:"+fap);
+    
+//     res.send("Submitted (Y)");
+    
+//     console.log("========================================");
+    
+// });
 
 
 
